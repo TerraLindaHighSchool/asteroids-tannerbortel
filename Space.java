@@ -1,58 +1,52 @@
-import greenfoot.*;
+import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
 
 /**
- * Space. Something for rockets to fly in.
+ * Space. Something for rockets to fly in...
  * 
- * @author Michael Kölling
- * @version 1.1
+ * @author Tanner Bortel
+ * @version 3.0
  */
 public class Space extends World
 {
-    private Counter scoreCounter;
-    private int startAsteroids = 3;
-
     /**
-     * Create the space and all objects within it.
+     * Create the space world with black background and stars.
      */
     public Space() 
     {
-        super(600, 500, 1);
+        super(800, 600, 1);
         GreenfootImage background = getBackground();
         background.setColor(Color.BLACK);
         background.fill();
-        
-        Rocket rocket = new Rocket();
-        addObject(rocket, getWidth()/2 + 100, getHeight()/2);
-        
-        addAsteroids(startAsteroids);
-        
-        scoreCounter = new Counter("Score: ");
-        addObject(scoreCounter, 60, 480);
-
+        paintStars(300);
         Explosion.initializeImages();
-        ProtonWave.initializeImages();
+        prepare();
     }
     
-    /**
-     * Add a given number of asteroids to our world. Asteroids are only added into
-     * the left half of the world.
-     */
-    private void addAsteroids(int count) 
+    private void paintStars(int count)
     {
-        for(int i = 0; i < count; i++) 
+        GreenfootImage background = getBackground(); 
+        for (int i=0; i < count + 1; i++)
         {
-            int x = Greenfoot.getRandomNumber(getWidth()/2);
-            int y = Greenfoot.getRandomNumber(getHeight()/2);
-            addObject(new Asteroid(), x, y);
+           int x = Greenfoot.getRandomNumber( getWidth() );
+           int y = Greenfoot.getRandomNumber( getHeight() );
+           int color1 = 150 - Greenfoot.getRandomNumber(120);
+           int color2 = color1 - Greenfoot.getRandomNumber(20);
+           int color3 = color1 + Greenfoot.getRandomNumber(20);
+           background.setColorAt(x, y, new Color(color1,color2,color3));
+           int size1 = 3 - Greenfoot.getRandomNumber(2);
+           int size2 = 3 - Greenfoot.getRandomNumber(2);
+           background.fillOval(x, y, size1, size2);
         }
     }
-    
     /**
-     * This method is called when the game is over to display the final score.
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
      */
-    public void gameOver() 
+    private void prepare()
     {
-        // TODO: show the score board here. Currently missing.
+        Asteroid asteroid = new Asteroid();
+        addObject(asteroid,376,149);
+        Asteroid asteroid2 = new Asteroid();
+        addObject(asteroid2,473,343);
     }
-
 }

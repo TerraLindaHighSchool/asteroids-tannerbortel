@@ -17,6 +17,8 @@ public class Space extends World
         GreenfootImage background = getBackground();
         background.setColor(Color.BLACK);
         background.fill();
+        Rocket rocket = new Rocket();
+        addObject(rocket, getWidth()/2 + 100, getHeight()/2);
         paintStars(300);
         Explosion.initializeImages();
         prepare();
